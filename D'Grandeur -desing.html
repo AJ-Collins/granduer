@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>D'Grandeur Event Centre</title>
+<meta name="description" content="Experience Beyond the Ordinary. Book a viewing at D'Grandeur Event Centre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@1,9..144,300&family=Pinyon+Script&family=Space+Grotesk:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1C2C3C;
+    --ivory:#F4F1EA;
+    --white:#FFFFFF;
+    --ease:cubic-bezier(.22,.8,.24,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{background:var(--navy);color:var(--white);font-family:'Space Grotesk',sans-serif;line-height:1.6;overflow-x:hidden}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit;text-decoration:none}
+  section{padding:0}
+
+  /* ---------- Buttons ---------- */
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 32px;border-radius:999px;font-size:15px;font-weight:500;border:1.5px solid var(--white);color:var(--white);background:transparent;cursor:pointer;transition:background .4s var(--ease),color .4s var(--ease),transform .4s var(--ease)}
+  .btn:hover{background:var(--white);color:var(--navy);transform:translateY(-2px)}
+  .btn.solid{background:var(--ivory);border-color:var(--ivory);color:var(--navy)}
+  .btn.solid:hover{background:transparent;color:var(--ivory)}
+  .btn:active{transform:translateY(0) scale(.98)}
+
+  /* ---------- Nav ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:30;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:16px 28px;transition:background .5s var(--ease),padding .5s var(--ease)}
+  .nav.scrolled{background:rgba(28,44,60,.92);backdrop-filter:blur(10px);padding:12px 28px}
+  .logo{font-family:'Pinyon Script',cursive;font-size:34px;color:var(--ivory)}
+  .logo{justify-self:start}
+  .actions{justify-self:end;display:flex;align-items:center;gap:12px}
+  .nav-cta{padding:10px 24px;font-size:14px}
+
+  /* Top links with one underline that glides between them */
+  .links{position:relative;display:flex;gap:6px}
+  .links a{position:relative;padding:10px 16px;font-size:16px;font-weight:600;letter-spacing:.01em;color:var(--white);opacity:.85;text-shadow:0 1px 12px rgba(0,0,0,.35);transition:opacity .3s var(--ease)}
+  .links a:hover,.links a.active{opacity:1}
+  .ink{position:absolute;bottom:2px;left:0;height:2px;width:0;background:var(--ivory);border-radius:2px;opacity:0;transition:transform .5s var(--ease),width .5s var(--ease),opacity .3s var(--ease);pointer-events:none}
+
+  /* Toggle icon */
+  .toggle{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--white);background:transparent;cursor:pointer;display:grid;place-items:center;transition:background .4s var(--ease),border-color .4s var(--ease)}
+  .toggle:hover{background:rgba(255,255,255,.14)}
+  .toggle span{display:block;width:18px;height:1.5px;background:var(--white);border-radius:2px;grid-area:1/1;transition:transform .5s var(--ease),opacity .3s var(--ease),width .4s var(--ease)}
+  .toggle span:nth-child(1){transform:translateY(-6px)}
+  .toggle span:nth-child(3){transform:translateY(6px);width:11px;justify-self:end;margin-right:14px}
+  .toggle:hover span:nth-child(3){width:18px;margin-right:14px}
+  .toggle[aria-expanded="true"]{background:var(--ivory);border-color:var(--ivory)}
+  .toggle[aria-expanded="true"] span{background:var(--navy);width:18px;margin-right:0;justify-self:center}
+  .toggle[aria-expanded="true"] span:nth-child(1){transform:rotate(45deg)}
+  .toggle[aria-expanded="true"] span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .toggle[aria-expanded="true"] span:nth-child(3){transform:rotate(-45deg)}
+
+  /* Dropdown */
+  .menu{position:absolute;top:calc(100% + 10px);right:28px;width:min(380px,calc(100vw - 32px));background:var(--navy);border:1.5px solid rgba(244,241,234,.28);border-radius:22px;padding:14px;box-shadow:0 30px 70px rgba(0,0,0,.4);opacity:0;visibility:hidden;transform:translateY(-14px) scale(.97);transform-origin:top right;transition:opacity .45s var(--ease),transform .55s var(--ease),visibility 0s .55s}
+  .menu.open{opacity:1;visibility:visible;transform:none;transition:opacity .45s var(--ease),transform .55s var(--ease),visibility 0s}
+  .menu ul{list-style:none}
+  .menu li a{display:flex;align-items:baseline;justify-content:space-between;padding:12px 18px;border-radius:14px;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:28px;line-height:1.1;color:var(--ivory);transition:background .4s var(--ease),padding-left .4s var(--ease)}
+  .menu li a small{font-family:'Space Grotesk',sans-serif;font-style:normal;font-size:13px;color:var(--white);opacity:.55;transition:opacity .3s var(--ease)}
+  .menu li a:hover{background:rgba(244,241,234,.09);padding-left:26px}
+  .menu li a:hover small{opacity:.9}
+  .menu li{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .menu.open li{opacity:1;transform:none}
+  .menu.open li:nth-child(1){transition-delay:.08s}.menu.open li:nth-child(2){transition-delay:.13s}.menu.open li:nth-child(3){transition-delay:.18s}.menu.open li:nth-child(4){transition-delay:.23s}.menu.open li:nth-child(5){transition-delay:.28s}.menu.open li:nth-child(6){transition-delay:.33s}
+  .menu .cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;padding:14px 4px 4px;border-top:1px solid rgba(244,241,234,.2)}
+  .menu .cta .btn{padding:13px 10px;font-size:14px}
+  .menu .contact{margin-top:14px;padding:0 6px 4px;font-size:13px;opacity:.6;text-align:center}
+
+  /* ---------- Hero ---------- */
+  .hero{background:var(--navy);position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden}
+  .hero img,.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:settle 2.6s var(--ease) both}
+  .hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.28)}
+  .hero-inner{position:absolute;z-index:2;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px 9vh;text-align:center}
+  .hero h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(66px, 14vw, 200px);line-height:.9;color:var(--ivory);letter-spacing:.01em;animation:rise 1.4s .3s var(--ease) both}
+  .hero .brand{text-shadow:0 1px 12px rgba(0,0,0,.4);font-size:14px;letter-spacing:.32em;text-transform:uppercase;color:var(--white);opacity:.9;animation:rise 1.4s .15s var(--ease) both}
+  .hero .tag{text-shadow:0 2px 20px rgba(0,0,0,.35);font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(24px,3.4vw,46px);line-height:1.15;color:var(--ivory);margin-top:8px;animation:rise 1.4s .5s var(--ease) both}
+  .hero p{margin:14px auto 28px;max-width:44ch;font-size:15px;color:var(--white);opacity:.9;animation:rise 1.4s .65s var(--ease) both}
+  .hero .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:rise 1.4s .75s var(--ease) both}
+  @keyframes settle{from{transform:scale(1.12)}to{transform:scale(1)}}
+  @keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+
+  /* ---------- Intro line ---------- */
+  .intro{padding:130px 28px 90px;text-align:center}
+  .intro p{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(28px,4vw,52px);line-height:1.25;max-width:22ch;margin:0 auto;color:var(--ivory)}
+  .intro small{display:block;margin:24px auto 0;max-width:44ch;font-size:15px;opacity:.7}
+
+  /* ---------- Mosaic ---------- */
+  .mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:19vw;gap:22px;padding:0 28px}
+  .tile{position:relative;overflow:hidden;border-radius:18px}
+  .tile img{transition:transform 1.6s var(--ease)}
+  .tile:hover img{transform:scale(1.06)}
+  .tile::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(0,0,0,.28);opacity:0;transition:opacity .6s var(--ease);pointer-events:none}
+  .tile:hover::after{opacity:1}
+  .tile span{position:absolute;z-index:2;color:var(--white);text-shadow:0 2px 24px rgba(0,0,0,.3)}
+  .tile em{position:absolute;z-index:2;text-shadow:0 1px 14px rgba(0,0,0,.45);font-style:normal;font-size:14px;color:var(--white);opacity:.9;max-width:24ch}
+
+  .t1{grid-column:span 7;grid-row:span 2}
+  .t2{grid-column:span 5}
+  .t3{grid-column:span 5}
+  .t4{grid-column:span 4;grid-row:span 2}
+  .t5{grid-column:span 8}
+  .t6{grid-column:span 4}
+  .t7{grid-column:span 4}
+
+  .w-wed{left:30px;bottom:56px;font-family:'Pinyon Script',cursive;font-size:clamp(70px,11vw,180px);line-height:1;color:var(--ivory)}
+  .t1 em{left:34px;bottom:26px}
+  .w-gala{right:26px;top:16px;font-family:'Anton',sans-serif;font-size:clamp(50px,7vw,120px);color:var(--ivory)}
+  .t2 em{right:28px;bottom:22px;text-align:right}
+  .w-summit{left:26px;bottom:52px;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(44px,6.5vw,104px)}
+  .t3 em{left:30px;bottom:22px}
+  .w-light{left:50%;top:50%;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(20px,2.8vw,40px);letter-spacing:.6em;text-transform:uppercase;writing-mode:vertical-rl;transform:translate(-50%,-50%) rotate(180deg)}
+  .t4 em{left:24px;bottom:22px}
+  .w-toast{right:30px;bottom:56px;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(50px,7.5vw,120px);color:var(--ivory)}
+  .t5 em{right:34px;bottom:26px;text-align:right}
+  .w-faith{left:26px;bottom:50px;font-family:'Anton',sans-serif;font-size:clamp(36px,4.4vw,72px);color:var(--ivory)}
+  .t6 em{left:28px;bottom:20px}
+  .w-remember{right:24px;bottom:50px;font-family:'Pinyon Script',cursive;font-size:clamp(44px,5.6vw,92px);line-height:1;color:var(--ivory)}
+  .t7 em{right:26px;bottom:20px;text-align:right}
+
+  /* ---------- Three layers ---------- */
+  .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:0 28px}
+  .layer{padding:16px 16px 34px;border:1.5px solid rgba(244,241,234,.28);border-radius:18px;transition:background .5s var(--ease),transform .5s var(--ease)}
+  .layer:hover{background:rgba(244,241,234,.08);transform:translateY(-6px)}
+  .layer h3,.layer p{margin-left:12px;margin-right:12px}
+  .layer:hover .pimg img{transform:scale(1.07)}
+  .layer .pimg{aspect-ratio:3/2}
+  .layer h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:44px;line-height:1.1;color:var(--ivory)}
+  .layer p{margin-top:10px;font-size:15px;opacity:.75;max-width:28ch}
+  .layer p.lead{opacity:1;color:var(--ivory);margin-top:12px}
+  .layer p.lead+p{margin-top:8px;opacity:.65;font-size:14px}
+
+  /* ---------- Strip ---------- */
+  .strip{display:flex;gap:22px;overflow-x:auto;padding:0 28px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .strip::-webkit-scrollbar{display:none}
+  .strip div{flex:0 0 min(66vw,380px);height:54vh;scroll-snap-align:start;overflow:hidden;border-radius:18px}
+  .strip div:nth-child(even){margin-top:40px;height:calc(54vh - 40px)}
+  .strip div{position:relative}
+  .strip img{transition:transform 1.6s var(--ease)}
+  .strip div:hover img{transform:scale(1.06)}
+
+ /* ---------- Final conversion: three doors ---------- */
+.end{position:relative;background:var(--navy);color:var(--white);padding:clamp(100px,14vh,150px) 0 0;overflow:hidden}
+.end-top{padding:0 28px;text-align:center}
+.end-eyebrow{display:block;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(20px,2vw,28px);color:var(--ivory);opacity:.7;margin-bottom:10px}
+.end-h{font-weight:400;color:var(--ivory);display:flex;flex-direction:column;align-items:center}
+.end-h .a{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(26px,3.4vw,46px);line-height:1.1}
+.end-h .b{font-family:'Pinyon Script',cursive;font-size:clamp(76px,15vw,240px);line-height:.95;margin:-.02em 0}
+.end-h .c{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.03em;font-size:clamp(38px,8.4vw,140px);line-height:.95}
+
+.end-doors{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:center;padding:clamp(50px,7vw,90px) 28px 0}
+.ec{position:relative;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;color:var(--white);isolation:isolate;transition:transform .7s var(--ease),box-shadow .7s var(--ease)}
+.ec:hover{transform:translateY(-12px);box-shadow:0 40px 80px rgba(0,0,0,.45)}
+.ec img{position:absolute;inset:0;z-index:-2;transition:transform 1.6s var(--ease)}
+.ec:hover img{transform:scale(1.08)}
+.ec::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(28,44,60,.9),rgba(28,44,60,.15) 60%,rgba(28,44,60,.35))}
+.ec-n{font-family:'Instrument Serif',serif;font-size:22px;opacity:.75}
+.ec-t{display:block;color:var(--ivory);line-height:.95}
+.ec-s{display:block;margin-top:10px;font-size:14px;opacity:.85;max-width:26ch}
+.ec-go{width:52px;height:52px;border-radius:50%;background:var(--ivory);display:grid;place-items:center;flex:none;transition:transform .6s var(--ease)}
+.ec-go svg{width:20px;height:20px;fill:none;stroke:var(--navy);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ec:hover .ec-go{transform:rotate(-45deg) scale(1.08)}
+.ec-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:14px}
+
+/* 1 arch · Anton */
+.ec1{min-height:clamp(480px,46vw,640px);border-radius:999px 999px 28px 28px;padding:36px 34px 40px}
+.ec1 .ec-t{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(38px,4vw,62px)}
+/* 2 circle · script, centred */
+.ec2{aspect-ratio:1;border-radius:50%;align-items:center;justify-content:center;text-align:center;padding:12%}
+.ec2 .ec-t{font-family:'Pinyon Script',cursive;font-size:clamp(50px,5.8vw,92px);line-height:1}
+.ec2 .ec-s{margin-left:auto;margin-right:auto}
+.ec2 .ec-row{justify-content:center}
+/* 3 leaf · Fraunces italic */
+.ec3{min-height:clamp(440px,40vw,540px);border-radius:0 110px 0 110px;padding:36px 34px 40px}
+.ec3 .ec-t{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(40px,4.4vw,68px);line-height:1.02}
+
+/* ticker */
+.end-mq{margin-top:0;overflow:hidden;background:var(--navy);padding:26px 0}
+.end-mq div{display:flex;width:max-content;animation:endmq 40s linear infinite}
+.end-mq span{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(46px,8vw,120px);line-height:1;padding-right:.5em;color:transparent;-webkit-text-stroke:1.2px rgba(244,241,234,.55);white-space:nowrap}
+.end-mq span i{font-style:normal;font-family:'Pinyon Script',cursive;text-transform:none;-webkit-text-stroke:0;color:var(--ivory);padding:0 .35em}
+@keyframes endmq{to{transform:translateX(-50%)}}
+.end-mq:hover div{animation-play-state:paused}
+
+.end-contact{display:flex;justify-content:center;flex-wrap:wrap;gap:14px 34px;padding:34px 28px 38px;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+.end-contact a{display:inline-flex;align-items:center;gap:12px;opacity:.85;transition:opacity .3s var(--ease),transform .4s var(--ease)}
+.end-contact a:hover{opacity:1;transform:translateY(-2px)}
+.end-contact svg{width:20px;height:20px;flex:none}
+.end-contact .ic-mail{fill:none;stroke:var(--ivory);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.end-contact .ic-wa{fill:#25D366}
+
+@media (max-width:900px){
+  .end-doors{grid-template-columns:1fr;gap:18px;padding:44px 16px 0}
+  .ec1,.ec3{min-height:420px;padding:28px 24px 30px}
+  .ec1{border-radius:220px 220px 24px 24px}
+  .ec3{border-radius:0 80px 0 80px}
+  .ec2{width:100%;max-width:380px;margin:0 auto}
+  .ec-go{width:46px;height:46px}
+}
+@media (max-width:800px){
+  .end{padding-top:90px}
+  .end-top{padding:0 16px}
+  .end-contact{padding:22px 16px 100px;font-size:11px;letter-spacing:.14em}
+}
+@media (prefers-reduced-motion:reduce){
+  .end-mq div{animation:none}
+  .ec,.ec img,.ec-go{transition:none}
+}
+
+  footer{padding:36px 28px 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:14px;opacity:.7}
+
+  /* ---------- Sections ---------- */
+  .block{padding:130px 0}
+  .sh{padding:0 28px;margin-bottom:44px}
+  .sh h2{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(36px,5vw,68px);line-height:1.1;color:var(--ivory)}
+  .sh p{margin-top:12px;font-size:15px;opacity:.7;max-width:40ch}
+
+  .facts{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;padding:0 28px}
+  .fact{padding:30px 16px;border:1.5px solid rgba(244,241,234,.28);border-radius:18px;text-align:center;transition:background .5s var(--ease),transform .5s var(--ease)}
+  .fact:hover{background:rgba(244,241,234,.08);transform:translateY(-6px)}
+  .fact svg{width:30px;height:30px;margin:0 auto 16px;display:block;fill:none;stroke:var(--ivory);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .fact b{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:38px;line-height:1.1;color:var(--ivory)}
+  .fact span{display:block;margin-top:6px;font-size:13px;opacity:.7}
+
+  .pk{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:0 28px}
+  .pimg{position:relative;flex:none;aspect-ratio:4/3;border-radius:12px;overflow:hidden;margin-bottom:26px}
+  .pimg img{position:absolute;inset:0}
+  .pimg.noimg{background:rgba(244,241,234,.12)}
+  .pkg.bespoke .pimg.noimg{background:rgba(28,44,60,.1)}
+  .pimg.noimg img{display:none}
+  .pimg img{transition:transform 1.4s var(--ease)}
+  .pkg:hover .pimg img{transform:scale(1.07)}
+  .pkg{display:flex;flex-direction:column;padding:16px 16px 30px;border:1.5px solid rgba(244,241,234,.28);border-radius:18px;transition:background .5s var(--ease),transform .5s var(--ease)}
+  .pkg:hover{background:rgba(244,241,234,.08);transform:translateY(-6px)}
+  .pkg h3,.pkg .pos,.pkg ul,.pkg .btn{margin-left:12px;margin-right:12px}
+  .pkg h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:40px;line-height:1.1;color:var(--ivory)}
+  .pkg .pos{margin-top:4px;font-size:14px;opacity:.65}
+  .pkg ul{list-style:none;margin:24px 0 30px;font-size:15px}
+  .pkg li{padding:10px 0;border-top:1px solid rgba(244,241,234,.2);opacity:.9}
+  .pkg .btn{margin-top:auto;margin-left:12px;margin-right:12px}
+  .pkg.bespoke{background:var(--ivory);color:var(--navy)}
+  .pkg.bespoke:hover{background:var(--white)}
+  .pkg.bespoke h3{color:var(--navy)}
+  .pkg.bespoke li{border-color:rgba(28,44,60,.2)}
+  .pkg.bespoke .btn{border-color:var(--navy);color:var(--navy)}
+  .pkg.bespoke .btn:hover{background:var(--navy);color:var(--ivory)}
+  .pk-note{padding:22px 28px 0;font-size:14px;opacity:.6}
+
+  .strip div em{position:absolute;z-index:2;left:22px;bottom:18px;font-style:normal;font-size:14px;color:var(--white);text-shadow:0 1px 14px rgba(0,0,0,.45)}
+
+  .exp{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;padding:0 28px}
+  .exp .img{border-radius:18px;overflow:hidden;aspect-ratio:4/5;max-height:72vh;width:100%}
+  .exp ul{list-style:none}
+  .exp li{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:20px 0;border-top:1px solid rgba(244,241,234,.2)}
+  .exp li:last-child{border-bottom:1px solid rgba(244,241,234,.2)}
+  .exp li b{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:30px;line-height:1.1;color:var(--ivory)}
+  .exp li span{font-size:14px;opacity:.65;text-align:right;max-width:22ch}
+
+  .quote{padding:0 28px;max-width:900px}
+  .quote blockquote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(28px,4vw,52px);line-height:1.25;color:var(--ivory)}
+  .quote cite{display:block;margin-top:18px;font-style:normal;font-size:14px;opacity:.65}
+
+  @media (max-width:1180px){
+    .links{display:none}
+    .nav{grid-template-columns:1fr auto}
+  }
+  @media (max-width:1000px){
+    .links{display:none}
+    .nav{grid-template-columns:1fr auto}
+    .facts{grid-template-columns:repeat(3,1fr)}
+    .pk{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:800px){
+    .block{padding:90px 0}
+    .sh{padding:0 16px;margin-bottom:32px}
+    .facts,.exp,.quote,.pk{padding-left:16px;padding-right:16px}
+    .pk-note{padding-left:16px}
+    .facts{grid-template-columns:1fr 1fr;gap:12px}
+    .pk{grid-template-columns:1fr;gap:16px}
+    .exp{grid-template-columns:1fr;gap:36px}
+    .exp li b{font-size:26px}
+    .mosaic .tile.t6,.mosaic .tile.t7{grid-row:span 1}
+  }
+
+  /* ---------- More than a venue: full-photo cards, poster type ---------- */
+  .layer{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:clamp(420px,42vw,600px);padding:34px 30px;border:0}
+  .layer:hover{background:none}
+  .layer .pimg{position:absolute;inset:0;margin:0;border-radius:0;aspect-ratio:auto;z-index:0}
+  .layer h3,.layer p{position:relative;z-index:2;margin-left:0;margin-right:0;color:var(--white);text-shadow:0 2px 20px rgba(0,0,0,.45)}
+  .layer h3{font-family:'Anton',sans-serif;font-style:normal;font-weight:400;font-size:clamp(48px,5.2vw,84px);line-height:.95;letter-spacing:.01em;text-transform:uppercase;color:var(--ivory)}
+  .layer p.lead{font-size:17px;font-weight:500;opacity:1;color:var(--white)}
+  .layer p.lead+p{opacity:.9}
+
+  /* ---------- Packages: framed cards, clean sans type, chips and ticks ---------- */
+  .pkg h3{font-family:'Space Grotesk',sans-serif;font-style:normal;font-weight:600;font-size:28px;letter-spacing:-.01em;color:var(--white)}
+  .pkg .pos{display:inline-block;align-self:flex-start;margin-top:12px;padding:5px 14px;border:1px solid rgba(244,241,234,.4);border-radius:999px;font-size:12px;opacity:1}
+  .pkg li{position:relative;padding:9px 0 9px 26px;border-top:0}
+  .pkg li::before{content:"";position:absolute;left:4px;top:15px;width:6px;height:11px;border:solid var(--ivory);border-width:0 1.5px 1.5px 0;transform:rotate(45deg) scale(.9)}
+  .pkg.bespoke h3{color:var(--navy)}
+  .pkg.bespoke .pos{border-color:rgba(28,44,60,.45)}
+  .pkg.bespoke li::before{border-color:var(--navy)}
+
+  /* ---------- More than a venue: three different shapes and type ---------- */
+  .layers{align-items:center}
+  .layers .layer:nth-child(1){border-radius:999px 999px 28px 28px;min-height:clamp(480px,46vw,640px);padding:34px 34px 44px}
+  .layers .layer:nth-child(2){aspect-ratio:1;min-height:0;border-radius:50%;align-items:center;justify-content:center;text-align:center;padding:14%}
+  .layers .layer:nth-child(2) h3{font-family:'Pinyon Script',cursive;text-transform:none;font-size:clamp(56px,6.4vw,104px);line-height:1;letter-spacing:0}
+  .layers .layer:nth-child(2) p{max-width:22ch}
+  .layers .layer:nth-child(3){min-height:clamp(420px,38vw,520px);border-radius:0 110px 0 110px;justify-content:flex-start;padding:44px 36px}
+  .layers .layer:nth-child(3) h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;text-transform:none;font-size:clamp(46px,5vw,76px);line-height:1.05;letter-spacing:0}
+  .layers .layer:nth-child(3) p.lead{margin-top:14px}
+
+  /* ---------- Packages: four different cards ---------- */
+  /* 1 Essential: square-cornered, plain sans */
+  .pk .pkg:nth-child(1){border-radius:6px}
+  .pk .pkg:nth-child(1) .pimg{border-radius:3px}
+  .pk .pkg:nth-child(1) .pos{border-radius:4px}
+  /* 2 Classic: very round, italic serif, hairline list */
+  .pk .pkg:nth-child(2){border-radius:48px}
+  .pk .pkg:nth-child(2) .pimg{border-radius:32px}
+  .pk .pkg:nth-child(2) h3{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:40px;letter-spacing:0}
+  .pk .pkg:nth-child(2) .pos{padding:0;border:0;border-radius:0;font-size:14px;opacity:.65}
+  .pk .pkg:nth-child(2) li{padding:10px 0;border-top:1px solid rgba(244,241,234,.2)}
+  .pk .pkg:nth-child(2) li::before{display:none}
+  /* 3 Signature: arch photo, poster type, dash markers */
+  .pk .pkg:nth-child(3){border-radius:999px 999px 28px 28px}
+  .pk .pkg:nth-child(3) .pimg{border-radius:999px 999px 12px 12px;aspect-ratio:1/1.1}
+  .pk .pkg:nth-child(3) h3{font-family:'Anton',sans-serif;font-weight:400;font-size:40px;letter-spacing:.02em;text-transform:uppercase}
+  .pk .pkg:nth-child(3) .pos{border:0;padding:0;border-radius:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+  .pk .pkg:nth-child(3) li::before{width:12px;height:0;border:0;border-top:1.5px solid var(--ivory);top:20px;left:0;transform:none}
+  /* 4 Bespoke: ivory leaf shape, script name */
+  .pk .pkg:nth-child(4){border-radius:0 64px 0 64px}
+  .pk .pkg:nth-child(4) .pimg{border-radius:0 48px 0 48px}
+  .pk .pkg:nth-child(4) h3{font-family:'Pinyon Script',cursive;font-weight:400;font-size:64px;line-height:1}
+  .pk .pkg:nth-child(4) .pos{border:0;padding:0;border-radius:0;font-family:'Fraunces',serif;font-style:italic;font-size:16px;opacity:.7}
+  .pk .pkg:nth-child(4) li{font-family:'Fraunces',serif;font-style:italic;font-size:17px;padding:9px 0}
+  .pk .pkg:nth-child(4) li::before{display:none}
+  .pk .pkg:nth-child(4) li{padding-left:0}
+
+  /* ---------- Colour rhythm: navy and ivory alternate, about half each ---------- */
+  .ivory{background:var(--ivory);color:var(--navy)}
+  .ivory .sh h2,.ivory .intro p,.intro.ivory p{color:var(--navy)}
+  .ivory .fact{border-color:rgba(28,44,60,.22)}
+  .ivory .fact:hover{background:rgba(28,44,60,.06)}
+  .ivory .fact b{color:var(--navy)}
+  .ivory .fact svg{stroke:var(--navy)}
+
+  /* ---------- Testimonials: auto-scrolling marquee ---------- */
+.tq-sec{overflow:hidden}
+.tq-sec[hidden]{display:none!important}
+.tq-sec .sh{text-align:center;margin-bottom:64px}
+.tq-sec .sh h2{font-size:clamp(44px,6.4vw,96px)}
+.tq-sec .sh p{margin-left:auto;margin-right:auto}
+.tq-eyebrow{display:block;font-family:'Pinyon Script',cursive;font-size:clamp(34px,4vw,54px);line-height:1;color:var(--navy);opacity:.55;margin-bottom:6px}
+
+.tqm{display:flex;flex-direction:column;gap:22px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.tqr{overflow:hidden;padding:14px 0}
+.tqt{display:flex;width:max-content;animation:tqleft var(--spd,60s) linear infinite;will-change:transform}
+.tqr.rev .tqt{animation-name:tqright}
+.tqm:hover .tqt,.tqm.hold .tqt{animation-play-state:paused}
+@keyframes tqleft{to{transform:translateX(-50%)}}
+@keyframes tqright{from{transform:translateX(-50%)}to{transform:none}}
+
+/* card base */
+.qc{position:relative;overflow:hidden;flex:none;width:clamp(300px,31vw,450px);margin-right:22px;padding:34px 32px 30px;border-radius:26px;display:flex;flex-direction:column;justify-content:space-between;gap:30px;transition:transform .7s var(--ease),box-shadow .7s var(--ease)}
+.qc:hover{transform:translateY(-10px) rotate(-.6deg);box-shadow:0 30px 60px rgba(28,44,60,.22)}
+.qk{font-family:'Pinyon Script',cursive;font-size:76px;line-height:1;height:auto;margin:0 0 -22px;opacity:.4}
+.qc blockquote{line-height:1.22}
+
+/* who: small circle photo with a rotating ring */
+.qw{display:flex;align-items:center;gap:16px}
+.qp{position:relative;width:58px;height:58px;flex:none}
+.qp img{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:1}
+.qp::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px dashed currentColor;opacity:.55;animation:qspin 14s linear infinite}
+@keyframes qspin{to{transform:rotate(360deg)}}
+.qw b{display:block;font-size:16px;font-weight:600;line-height:1.2}
+.qw small{display:block;font-size:12px;opacity:.65;line-height:1.4}
+.qw em{margin-left:auto;font-style:normal;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;border-radius:999px;opacity:.8;white-space:nowrap}
+
+/* 1 navy · Fraunces italic */
+.qv1{background:var(--navy);color:var(--ivory)}
+.qv1 blockquote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(23px,2.1vw,30px)}
+
+/* 2 outlined · Instrument Serif, large */
+.qv2{background:transparent;border:1.5px solid rgba(28,44,60,.55);color:var(--navy);border-radius:26px 90px 26px 90px}
+.qv2 blockquote{font-family:'Instrument Serif',serif;font-size:clamp(28px,2.6vw,38px);letter-spacing:-.01em}
+.qv2 em{font-family:'Anton',sans-serif;letter-spacing:.1em;font-size:12px}
+
+/* 3 white card · script accent */
+.qv3{background:var(--white);color:var(--navy);box-shadow:0 18px 44px rgba(28,44,60,.1)}
+.qv3 .qk{opacity:.3}
+.qv3 blockquote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2vw,28px)}
+.qv3 .qw b{font-family:'Pinyon Script',cursive;font-weight:400;font-size:30px;line-height:1}
+
+/* 4 leaf · tinted */
+.qv4{background:rgba(28,44,60,.08);color:var(--navy);border-radius:0 90px 0 90px}
+.qv4 blockquote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(23px,2.1vw,30px)}
+.qv4 em{font-family:'Space Grotesk',sans-serif}
+
+/* entrance: rows slide in from opposite sides */
+.tqr.reveal{transform:translateX(80px)}
+.tqr.rev.reveal{transform:translateX(-80px)}
+.tqr.reveal.in{transform:none}
+
+@media (max-width:800px){
+  .tq-sec .sh{margin-bottom:40px}
+  .qc{width:78vw;max-width:380px;padding:26px 22px 22px;margin-right:14px;gap:22px}
+  .qk{font-size:60px;margin-bottom:-18px}
+  .qv2{border-radius:22px 60px 22px 60px}
+  .qv4{border-radius:0 60px 0 60px}
+  .qv1 blockquote,.qv4 blockquote{font-size:21px}
+  .qv2 blockquote{font-size:26px}
+  .qv3 blockquote{font-size:20px}
+  .qw{flex-wrap:wrap;gap:12px}
+  .qw em{margin-left:0}
+  .tqm{gap:14px}
+}
+@media (max-width:420px){
+  .qc{width:84vw;padding:22px 18px 20px;border-radius:20px}
+  .qk{font-size:50px;margin-bottom:-14px}
+  .qv1 blockquote,.qv4 blockquote{font-size:19px}
+  .qv2 blockquote{font-size:23px}
+  .qv3 blockquote{font-size:18px}
+  .qp{width:46px;height:46px}
+  .qw b{font-size:14px}
+  .qv3 .qw b{font-size:26px}
+  .qw em{font-size:10px;padding:5px 11px}
+}
+@media (prefers-reduced-motion:reduce){
+  .tqt,.qk,.qp::before{animation:none}
+  .tqr{overflow-x:auto}
+  .tqr.reveal,.tqr.rev.reveal{transform:none}
+}
+
+
+  /* ---------- More than a venue: stacking photo panels ---------- */
+  .stack{padding:0 28px}
+  .panel{--top:calc(92px + var(--n)*16px);position:sticky;top:var(--top);height:min(76vh,700px);margin-bottom:16vh;border-radius:30px;overflow:hidden;background:var(--navy);transform-origin:50% 0;will-change:transform;box-shadow:0 30px 60px rgba(28,44,60,.18)}
+  .panel:last-child{margin-bottom:0}
+  .panel>img{position:absolute;inset:0;transform:scale(1.1);transition:transform 2.2s var(--ease)}
+  .panel.in>img{transform:scale(1)}
+  .panel.noimg>img{display:none}
+  .panel>*:not(img){position:absolute;z-index:2;color:var(--white)}
+  .pn-num{top:26px;left:28px;font-family:'Instrument Serif',serif;font-size:26px;line-height:1;padding:9px 18px;border:1.5px solid rgba(255,255,255,.85);border-radius:999px;opacity:0;transform:translateY(-12px);transition:opacity .9s .2s var(--ease),transform .9s .2s var(--ease)}
+  .pn-add{top:26px;right:28px;font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;padding:8px 18px;border-radius:999px;background:var(--ivory);color:var(--navy)!important;opacity:0;transform:translateY(-12px);transition:opacity .9s .35s var(--ease),transform .9s .35s var(--ease)}
+  .panel.in .pn-num,.panel.in .pn-add{opacity:1;transform:none}
+  .pn-bottom{left:0;right:0;bottom:0;padding:0 34px 34px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 24px}
+  .pn-bottom h3{grid-column:1;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(84px,14vw,220px);line-height:.85;letter-spacing:-.02em;overflow:hidden;padding-bottom:.08em;text-shadow:0 4px 40px rgba(0,0,0,.3)}
+  .pw{display:inline-block;transform:translateY(105%);transition:transform 1.2s .1s var(--ease)}
+  .panel.in .pw{transform:none}
+  .pn-line{grid-column:1;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(24px,2.6vw,38px);text-shadow:0 2px 20px rgba(0,0,0,.4);opacity:0;transform:translateY(16px);transition:opacity .9s .5s var(--ease),transform .9s .5s var(--ease)}
+  .pn-chips{grid-column:2;grid-row:1/3;display:flex;flex-direction:column;align-items:flex-end;gap:8px;opacity:0;transform:translateY(16px);transition:opacity .9s .65s var(--ease),transform .9s .65s var(--ease)}
+  .pn-chips span{padding:8px 18px;border-radius:999px;background:var(--ivory);color:var(--navy);font-size:14px;font-weight:500}
+  .panel.in .pn-line,.panel.in .pn-chips{opacity:1;transform:none}
+  .eq{margin-top:110px;text-align:center;font-family:'Instrument Serif',serif;font-size:clamp(32px,5.4vw,84px);line-height:1.1;color:var(--navy);padding:0 16px}
+  .eq em{font-style:italic;padding:0 .18em;opacity:.45}
+  @media (max-width:800px){
+    .stack{padding:0 16px}
+    .panel{height:68svh;margin-bottom:12vh;border-radius:24px}
+    .pn-bottom{grid-template-columns:1fr;padding:0 22px 26px}
+    .pn-chips{grid-column:1;grid-row:auto;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;margin-top:10px}
+    .pn-num{top:20px;left:20px}.pn-add{top:20px;right:20px}
+    .eq{margin-top:80px}
+  }
+  @media (prefers-reduced-motion:reduce){.panel>img,.pn-num,.pn-add,.pw,.pn-line,.pn-chips{transition:none;transform:none;opacity:1}}
+
+    /* ---------- Choose your experience: scroll story ---------- */
+  .jsec{padding-bottom:0}
+  .journey{position:relative;height:420vh}
+  .jsec .sh{margin-bottom:0}
+  .jstage{--t:9%;--r:30%;--b:32%;--l:30%;--rad:999px 999px 26px 26px;--p:0;position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--navy)}
+  .jstage[data-k="1"]{--t:9%;--r:22%;--b:28%;--l:22%;--rad:140px 140px 26px 26px}
+  .jstage[data-k="2"]{--t:8%;--r:12%;--b:22%;--l:12%;--rad:44px}
+  .jstage[data-k="3"]{--t:0%;--r:0%;--b:0%;--l:0%;--rad:0px}
+
+  .jframe{position:absolute;top:var(--t);right:var(--r);bottom:var(--b);left:var(--l);border-radius:var(--rad);overflow:hidden;background:rgba(244,241,234,.1);transition:top 1.2s var(--ease),right 1.2s var(--ease),bottom 1.2s var(--ease),left 1.2s var(--ease),border-radius 1.2s var(--ease)}
+  .jframe::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(28,44,60,.85),rgba(28,44,60,.1) 60%,rgba(28,44,60,.25))}
+  .jimg{position:absolute;inset:0;opacity:0;transform:scale(1.14);transition:opacity 1.1s var(--ease),transform 2.4s var(--ease),filter 1.2s var(--ease)}
+  .jimg.on{opacity:1;transform:scale(1)}
+  .jimg.j0{filter:grayscale(1) brightness(.75)}
+  .jimg.j1{filter:grayscale(.55) brightness(.85)}
+  .jimg.j2{filter:grayscale(.15)}
+  .jimg.j3{filter:saturate(1.12)}
+  .jstage:not([data-k="0"]) .jhint{opacity:0}
+
+  .jstep{position:absolute;z-index:3;left:0;right:0;bottom:8vh;padding:0 34px 0 110px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:4px 24px;opacity:0;pointer-events:none;transition:opacity .6s var(--ease)}
+  .jstep.on{opacity:1;pointer-events:auto;transition-delay:.25s}
+  .jadd{grid-column:1;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(20px,2vw,28px);color:var(--ivory);text-shadow:0 2px 20px rgba(0,0,0,.45)}
+  .jword{grid-column:1;font-size:clamp(64px,12vw,190px);line-height:.9;color:var(--white);text-shadow:0 4px 40px rgba(0,0,0,.35);transform:translateY(36px);transition:transform 1.1s .2s var(--ease)}
+  .jstep.on .jword{transform:none}
+  .jline{grid-column:1;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2.4vw,36px);color:var(--ivory);text-shadow:0 2px 20px rgba(0,0,0,.45)}
+  .jchips{grid-column:2;grid-row:1/4;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .jchips span{padding:8px 18px;border-radius:999px;background:var(--ivory);color:var(--navy);font-size:14px;font-weight:500}
+  .jchips .btn{margin-top:10px;padding:12px 26px;font-size:14px}
+
+  /* one type style per tier */
+  .jw0{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;color:rgba(255,255,255,.85)}
+  .jw1{font-family:'Fraunces',serif;font-style:italic;font-weight:300}
+  .jw2{font-family:'Instrument Serif',serif;letter-spacing:-.02em}
+  .jw3{font-family:'Pinyon Script',cursive;font-size:clamp(90px,16vw,260px);color:var(--ivory)}
+
+  @media (max-width:800px){
+    .jstage{--t:9%;--r:14%;--b:36%;--l:14%}
+    .jstage[data-k="1"]{--t:9%;--r:8%;--b:32%;--l:8%;--rad:100px 100px 22px 22px}
+    .jstage[data-k="2"]{--t:9%;--r:4%;--b:28%;--l:4%;--rad:32px}
+    .jhint{right:16px;top:84px;font-size:16px}
+    .jstep{padding:0 16px;grid-template-columns:1fr;bottom:5vh}
+    .jchips{grid-column:1;grid-row:auto;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;margin-top:10px}
+    .jchips .btn{margin-top:0}
+  }
+  @media (prefers-reduced-motion:reduce){.jframe,.jimg,.jstep,.jword,.jr{transition:none}}
+  
+/* ---------- Transformations: Pinterest masonry (responsive) ---------- */
+.gal{padding-bottom:110px}
+.gal .sh{margin-bottom:56px}
+.grow{position:relative;display:grid;gap:18px;padding:0 28px;margin-bottom:18px}
+.gi{position:relative;overflow:hidden;border-radius:18px;background:rgba(28,44,60,.12);min-height:0}
+.gi img{position:absolute;inset:0;transition:transform 1.6s var(--ease)}
+.gi:hover img{transform:scale(1.06)}
+.gi::after{content:"";position:absolute;inset:0;z-index:1;background:rgba(16,26,36,.42);opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
+.gi:hover::after,.gi:focus-within::after{opacity:1}
+.gi em{position:absolute;z-index:2;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 16px;font-style:normal;font-size:23px;letter-spacing:.14em;text-transform:uppercase;color:var(--white);text-shadow:0 1px 14px rgba(0,0,0,.45);opacity:0;transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none}
+.gi:hover em,.gi:focus-within em{opacity:1;transform:none}
+.gw{display:inline-block;font-weight:400;line-height:.9;color:var(--navy);white-space:nowrap}
+.gt{display:flex;align-items:center;justify-content:center;text-align:center}
+
+/* Masonry grid: desktop = one column per occasion */
+.mas{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 28px;align-items:start;margin-bottom:18px}
+.mcol{display:flex;flex-direction:column;gap:18px;min-width:0}
+.mcol:nth-child(even){margin-top:56px}
+.mas .gi{width:100%}
+.r1{aspect-ratio:3/4}.r2{aspect-ratio:1}.r3{aspect-ratio:4/5}.r4{aspect-ratio:2/3}.r5{aspect-ratio:5/4}
+
+/* Typography tiles: type scales with the tile width, so it never overflows */
+.mas .gt{container-type:inline-size;flex-direction:column;gap:2.5cqw;border-radius:18px;padding:6%;aspect-ratio:1}
+.mas .gt small{font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.65;line-height:1.4}
+.mt1{background:var(--navy)}
+.mt1 .gw{font-family:'Pinyon Script',cursive;font-size:clamp(48px,6.6vw,110px);font-size:27cqw;line-height:1;color:var(--ivory)}
+.mt1 small{color:var(--ivory)}
+.mt2{border:1.5px solid var(--navy)}
+.mt2 .gw{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(48px,7.6vw,130px);font-size:40cqw}
+.mt3{background:var(--navy)}
+.mt3 .gw{font-family:'Space Grotesk',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.22em;font-size:clamp(16px,2.2vw,34px);font-size:11cqw;color:var(--ivory)}
+.mt3 small{color:var(--ivory)}
+.mt4{border:1.5px solid var(--navy);border-radius:999px 999px 18px 18px!important;aspect-ratio:4/5!important;padding:12% 6% 6%}
+.mt4 .gw{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(34px,5vw,84px);font-size:17cqw}
+
+/* Shaped photos for rhythm */
+.sh-arch{border-radius:999px 999px 18px 18px!important}
+.sh-leaf{border-radius:0 90px 0 90px!important}
+.sh-leaf2{border-radius:18px 90px 18px 90px!important}
+
+/* More setups (unchanged) */
+.gmore{display:grid;grid-template-rows:0fr;transition:grid-template-rows 1s var(--ease)}
+.gmore.open{grid-template-rows:1fr}
+.gin{min-height:0;overflow:hidden;visibility:hidden;transition:visibility 0s 1s}
+.gmore.open .gin{visibility:visible;transition:visibility 0s}
+.g5{grid-template-columns:repeat(4,1fr);align-items:start;margin-bottom:0}
+.g5 .gi{aspect-ratio:3/4}
+.g5 .gi:nth-child(even){margin-top:36px}
+.g5 .gi:nth-child(odd){border-radius:999px 999px 18px 18px}
+.g5 .gi:nth-child(even){border-radius:18px 90px 18px 90px}
+.g5 .gi em{left:0;right:0;text-align:center;font-family:'Italiana',serif;font-size:clamp(20px,2.2vw,30px);letter-spacing:.1em}
+.gmore-wrap{display:flex;justify-content:center;padding:44px 28px 0}
+.gbtn{gap:12px;font-family:inherit;border-color:var(--navy);color:var(--navy)}
+.gbtn:hover{background:var(--navy);color:var(--ivory)}
+.gbtn i{font-style:normal;font-size:22px;line-height:1;transition:transform .5s var(--ease)}
+.gbtn[aria-expanded="true"] i{transform:rotate(45deg)}
+
+/* Tablet: true 2-column Pinterest flow (tiles and photos interleave, no gaps) */
+@media (max-width:1000px){
+  .mas{display:block;columns:2;column-gap:14px}
+  .mcol{display:contents}
+  .mas .gi,.mas .gt{break-inside:avoid;-webkit-column-break-inside:avoid;margin-bottom:14px}
+  .mcol:nth-child(even){margin-top:0}
+}
+
+/* Mobile */
+@media (max-width:800px){
+  .gal{padding-bottom:80px}
+  .gal .sh{margin-bottom:32px}
+  .grow{padding:0 16px;gap:12px;margin-bottom:12px}
+  .mas{padding:0 16px;column-gap:12px}
+  .mas .gi,.mas .gt{margin-bottom:12px;border-radius:14px}
+  .mas .gt small{font-size:10px;letter-spacing:.12em}
+  .mas .gi em{font-size:11px;letter-spacing:.1em}.mas .gi em{left:12px;bottom:10px;font-size:11px;letter-spacing:.1em}
+  .sh-leaf{border-radius:0 60px 0 60px!important}
+  .sh-leaf2{border-radius:14px 60px 14px 60px!important}
+  .mt4{border-radius:999px 999px 14px 14px!important}
+  .g5{grid-template-columns:1fr 1fr}
+  .g5 .gi:nth-child(even){margin-top:24px}
+  .gmore-wrap{padding:32px 16px 0}
+}
+
+/* Small phones */
+@media (max-width:380px){
+  .mas{column-gap:10px}
+  .mas .gi,.mas .gt{margin-bottom:10px}
+  .mas .gi em{font-size:10px}
+}
+
+@media (prefers-reduced-motion:reduce){.gi img,.gi::after,.gi em,.gmore,.gin,.gbtn i{transition:none}}
+
+/* ---------- The D'Grandeur experience: moments ---------- */
+.xp-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start;padding:0 28px}
+.xp-media{position:sticky;top:110px;width:100%}
+.xp-frame{position:relative;height:min(80vh,780px);width:100%;border-radius:14px;overflow:hidden;background:rgba(244,241,234,.1)}
+
+/* slides: one image + one badge each */
+.xs{position:absolute;inset:0;opacity:0;transition:opacity 1s var(--ease)}
+.xs.on{opacity:1}
+.xs img{position:absolute;inset:0;transform:scale(1.12);transition:transform 2s var(--ease)}
+.xs.on img{transform:scale(1)}
+
+/* mobile-only image above each option (hidden on desktop) */
+.xm{display:none}
+
+/* ---------- Badges ---------- */
+.xb{--o:bottom right;position:absolute;z-index:3;transform-origin:var(--o);color:var(--navy);opacity:0;transform:translateY(16px);transition:opacity .9s .35s var(--ease),transform .9s .35s var(--ease)}
+.xs.on .xb{opacity:1;transform:none}
+.xb svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.xb small{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;line-height:1.3;opacity:.7}
+.xb{background:var(--ivory)}
+
+/* 1 Arrival: round script seal */
+.xb1{--o:bottom right;right:26px;bottom:26px;width:140px;height:140px;border-radius:50%;background:var(--ivory);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.xb1::before{content:"";position:absolute;inset:7px;border:1px dashed rgba(28,44,60,.4);border-radius:50%}
+.xb1 b{font-family:'Pinyon Script',cursive;font-weight:400;font-size:40px;line-height:1}
+
+/* 2 Hospitality: glass pill */
+.xb2{--o:bottom left;left:24px;bottom:24px;display:flex;align-items:center;gap:12px;padding:10px 24px 10px 10px;border-radius:999px;background:var(--ivory);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.xb2 i{width:42px;height:42px;border-radius:50%;background:rgba(28,44,60,.1);color:var(--navy);display:grid;place-items:center;flex:none}
+.xb2 b{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:22px;line-height:1.1}
+
+/* 3 Guest care: arch card */
+.xb3{--o:top right;right:28px;top:28px;width:124px;padding:34px 12px 18px;border-radius:999px 999px 16px 16px;background:var(--ivory);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.xb3 svg{display:block;margin:0 auto 6px}
+.xb3 b{display:block;font-family:'Pinyon Script',cursive;font-weight:400;font-size:44px;line-height:.95}
+
+/* 4 Reliability: live AV chip */
+.xb4{--o:top left;left:24px;top:24px;display:flex;align-items:center;gap:14px;padding:14px 20px;border-radius:12px;background:var(--ivory);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.xb4 .dot{width:10px;height:10px;border-radius:50%;background:var(--navy);flex:none;animation:xpulse 1.8s ease-out infinite}
+.xb4 b{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;letter-spacing:.2em;text-transform:uppercase}
+@keyframes xpulse{0%{box-shadow:0 0 0 0 rgba(28,44,60,.45)}100%{box-shadow:0 0 0 12px rgba(28,44,60,0)}}
+
+/* 5 VIP: ticket */
+.xb5{--o:bottom right;right:24px;bottom:28px;display:flex;align-items:center;gap:18px;padding:14px 22px;border-radius:12px;background:var(--ivory);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.xb5 b{font-family:'Anton',sans-serif;font-weight:400;font-size:46px;line-height:1;letter-spacing:.03em}
+.xb5 span{display:block;padding-left:18px;border-left:1.5px dashed rgba(28,44,60,.45)}
+.xb5 span b{display:block;font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;letter-spacing:0;line-height:1.1}
+
+/* 6 Seamless: leaf */
+.xb6{--o:bottom left;left:28px;bottom:28px;padding:20px 32px 20px 26px;border-radius:0 60px 0 60px;background:var(--ivory);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.xb6 b{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:30px;line-height:1.05}
+
+/* ---------- List ---------- */
+.xp-list{list-style:none;counter-reset:xp}
+.xp-list li{position:relative;display:grid;grid-template-columns:auto 1fr auto;column-gap:26px;align-items:center;padding:26px 22px;border-top:1px solid rgba(244,241,234,.2);border-radius:0;cursor:pointer;outline:none;transition:background .5s var(--ease),padding-left .5s var(--ease),border-radius .5s var(--ease)}
+.xp-list li:last-child{border-bottom:1px solid rgba(244,241,234,.2)}
+.xn{font-family:'Instrument Serif',serif;font-size:22px;opacity:.45;transition:opacity .4s var(--ease)}
+.xt{display:block;color:var(--ivory);line-height:1;opacity:.55;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.xd{display:block;margin-top:10px;font-size:14px;opacity:.6;max-width:34ch}
+.xa{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(244,241,234,.4);display:grid;place-items:center;transition:background .4s var(--ease),transform .5s var(--ease),border-color .4s var(--ease)}
+.xa svg{width:18px;height:18px;fill:none;stroke:var(--ivory);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .4s var(--ease)}
+.xp-list li:hover,.xp-list li:focus-visible,.xp-list li.on{background:rgba(244,241,234,.08);padding-left:34px;border-radius:18px}
+.xp-list li.on .xt,.xp-list li:hover .xt{opacity:1;transform:translateX(6px)}
+.xp-list li.on .xn,.xp-list li:hover .xn{opacity:1}
+.xp-list li.on .xa{background:var(--ivory);border-color:var(--ivory);transform:rotate(-45deg)}
+.xp-list li.on .xa svg{stroke:var(--navy)}
+
+/* one type style per moment */
+.xt0{font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(34px,4vw,58px)}
+.xt1{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(36px,4.2vw,62px)}
+.xt2{font-family:'Pinyon Script',cursive;font-size:clamp(48px,5.6vw,84px)}
+.xt3{font-family:'Space Grotesk',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.22em;font-size:clamp(20px,2.2vw,32px)}
+.xt4{font-family:'Instrument Serif',serif;letter-spacing:-.02em;font-size:clamp(40px,4.8vw,70px)}
+.xt5{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(36px,4.2vw,62px)}
+
+@media (max-width:1000px){
+  .xp-wrap{gap:36px}
+}
+
+/* Mobile: hide the pinned image, show one image above every option */
+@media (max-width:800px){
+  .xp-wrap{grid-template-columns:1fr;gap:0;padding:0 16px}
+  .xp-media{display:none}
+  .xm{display:block;position:relative;grid-column:1/-1;aspect-ratio:4/3;border-radius:12px;overflow:hidden;margin-bottom:20px;background:rgba(244,241,234,.1)}
+  .xm img{position:absolute;inset:0}
+  .xm .xb{opacity:1;transform:scale(.72)}
+  .xm .xb1{right:14px;bottom:14px}
+  .xm .xb2{left:14px;bottom:14px}
+  .xm .xb3{right:16px;top:16px}
+  .xm .xb4{left:14px;top:14px}
+  .xm .xb5{right:14px;bottom:14px}
+  .xm .xb6{left:14px;bottom:14px}
+  .xp-list li{padding:22px 14px 24px;column-gap:16px}
+  .xp-list li:hover,.xp-list li.on{padding-left:14px;background:none;border-radius:0}
+  .xp-list li .xt,.xp-list li .xn{opacity:1}
+  .xp-list li:hover .xt,.xp-list li.on .xt{transform:none}
+  .xa{width:38px;height:38px}
+  .xt3{letter-spacing:.14em}
+}
+@media (prefers-reduced-motion:reduce){.xs,.xs img,.xb,.xp-list li,.xt,.xa{transition:none}.xb4 .dot{animation:none}}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(50px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .tile.reveal{transform:translateY(60px) scale(.97)}
+  .tile.reveal.in{transform:none}
+  .d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--ivory);outline-offset:4px}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .hero img,.hero video,.hero h1,.hero p,.hero .row{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    .tile img,.tile::after,.strip img,.pimg img,.btn,.layer{transition:none}
+  }
+
+  @media (max-width:800px){
+    .mosaic{grid-auto-rows:52vw;gap:16px;padding:0 16px}
+    .t1,.t2,.t3,.t4,.t5,.t6,.t7{grid-column:span 12;grid-row:span 1}
+    .t1,.t4{grid-row:span 2}
+    .intro{padding:90px 24px}
+    .layers{grid-template-columns:1fr;padding:0 16px;gap:16px}
+    .strip{padding:0 16px;gap:16px}
+    .links,.nav-cta{display:none}
+    .nav{grid-template-columns:1fr auto;padding:14px 16px}
+    .menu{right:16px}
+    .sticky{display:block;position:fixed;left:16px;right:16px;bottom:16px;z-index:40;text-align:center;background:var(--ivory);color:var(--navy);padding:16px;border-radius:999px;font-weight:500}
+    body{padding-bottom:84px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a href="#" class="logo">D'Grandeur</a>
+
+  <nav class="links" id="links" aria-label="Main">
+    <a href="#">Venue</a>
+    <a href="#">Events</a>
+    <a href="#">Experiences</a>
+    <a href="#">Packages</a>
+    <a href="#">Gallery</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact Us</a>
+    <a href="#">About Us</a>
+    <span class="ink" id="ink"></span>
+  </nav>
+
+  <div class="actions">
+    <a href="#book" class="btn nav-cta">Book a Viewing</a>
+    <button class="toggle" id="toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="menu" id="menu" role="dialog" aria-label="Menu">
+    <ul>
+      <li><a href="#">Venue <small>The space</small></a></li>
+      <li><a href="#">Events <small>Every occasion</small></a></li>
+      <li><a href="#">Experiences <small>Three layers</small></a></li>
+      <li><a href="#">Packages <small>Four ways in</small></a></li>
+      <li><a href="">Gallery <small>See it styled</small></a></li>
+      <li><a href="#">Contact Us <small>Say hello</small></a></li>
+      <li><a href="#">About Us <small>Find Out</small></a></li>
+    </ul>
+    <div class="cta">
+      <a href="#book" class="btn solid">Book a Viewing</a>
+      <a href="#book" class="btn">Request a Proposal</a>
+    </div>
+    <p class="contact">concierge@dgrandeur.com</p>
+  </div>
+</header>
+
+<!-- 01 HERO -->
+<section class="hero">
+  <video id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="https://images.pexels.com/videos/34926864/pexels-photo-34926864.jpeg?auto=compress&w=1260&h=750&dpr=1" aria-hidden="true">
+    <source src="https://videos.pexels.com/video-files/34926864/14794499_1920_1080_24fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-inner">
+    <span class="brand">D'Grandeur Event Centre</span>
+    <h1>D'Grandeur</h1>
+    <div class="tag">Experience Beyond the Ordinary</div>
+    <p>Where luxury, style and elegance come together to create moments that become lasting memories.</p>
+    <div class="row">
+      <a href="#book" class="btn solid">Book a Viewing</a>
+      <a href="#venue" class="btn">Explore the Venue</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="end-mq" aria-hidden="true">
+  <div>
+    <span>Weddings<i>&amp;</i>Galas<i>&amp;</i>Summits<i>&amp;</i>Concerts<i>&amp;</i></span>
+    <span>Weddings<i>&amp;</i>Galas<i>&amp;</i>Summits<i>&amp;</i>Concerts<i>&amp;</i></span>
+  </div>
+</div>
+
+<!-- 02 BRAND PROMISE -->
+<section class="intro ivory" id="venue">
+  <p class="reveal">Beautiful spaces. Thoughtful hospitality.</p>
+  <small class="reveal d1">Dependable event services for celebrations, corporate gatherings and special occasions.</small>
+</section>
+
+<!-- 03 VENUE AT A GLANCE (placeholder figures: replace with management-verified facts) -->
+<section class="block ivory" style="padding-top:0">
+  <div class="sh reveal"><h2>The venue at a glance</h2></div>
+  <div class="facts">
+    <div class="fact reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><b>0,000</b><span>Guest capacity</span></div>
+    <div class="fact reveal d1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg><b>00</b><span>Parking bays</span></div>
+    <div class="fact reveal d2"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><b>Backup</b><span>Power</span></div>
+    <div class="fact reveal"><svg viewBox="0 0 24 24" aria-hidden="true"><line x1="2" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="22"/><path d="m20 16-4-4 4-4"/><path d="m4 8 4 4-4 4"/><path d="m16 4-4 4-4-4"/><path d="m8 20 4-4 4 4"/></svg><b>Full</b><span>Air conditioning</span></div>
+    <div class="fact reveal d1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2"/><circle cx="12" cy="14" r="4"/><line x1="12" x2="12.01" y1="6" y2="6"/></svg><b>AV</b><span>Technical ready</span></div>
+    <div class="fact reveal d2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><b>Easy</b><span>Location and access</span></div>
+  </div>
+</section>
+
+<!-- 04 CELEBRATE YOUR WAY -->
+<section class="block" id="events">
+  <div class="sh reveal"><h2>Celebrate your way</h2><p>Every occasion, one adaptable space.</p></div>
+  <div class="mosaic">
+    <div class="tile t1 reveal">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1800&q=80" alt="Weddings">
+      <span class="w-wed">Wed</span><em>Weddings, personalised start to finish.</em>
+    </div>
+    <div class="tile t2 reveal d1">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1400&q=80" alt="Celebrations">
+      <span class="w-gala">GALA</span><em>Celebrations and milestones.</em>
+    </div>
+    <div class="tile t3 reveal">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=80" alt="Corporate events">
+      <span class="w-summit">Summit</span><em>Corporate and conferences.</em>
+    </div>
+    <div class="tile t4 reveal d1">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1200&q=80" alt="Concerts">
+      <span class="w-light">Light</span><em>Concerts and entertainment.</em>
+    </div>
+    <div class="tile t5 reveal">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=80" alt="Community and special events">
+      <span class="w-toast">Toast</span><em>Community and special occasions.</em>
+    </div>
+    <div class="tile t6 reveal">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=80" alt="Church and faith">
+      <span class="w-faith">FAITH</span><em>Church gatherings.</em>
+    </div>
+    <div class="tile t7 reveal d1">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="Memorials">
+      <span class="w-remember">Remember</span><em>Calm and respectful.</em>
+    </div>
+  </div>
+</section>
+
+<!-- 05 MORE THAN A VENUE: three stacked panels, one hall growing from space to delivery -->
+<section class="block ivory" id="experiences">
+  <div class="sh reveal"><h2>More than a venue</h2><p>From space to complete delivery.</p></div>
+  <div class="stack" id="stack">
+    <article class="panel" style="--n:0" data-grey="1">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1800&q=78" alt="The empty hall" onerror="this.closest('.panel').classList.add('noimg')">
+      <span class="pn-num">01</span>
+      <div class="pn-bottom">
+        <h3><span class="pw">Venue</span></h3>
+        <p class="pn-line">The space.</p>
+        <div class="pn-chips"><span>Hall</span><span>Power</span><span>Air conditioning</span></div>
+      </div>
+    </article>
+    <article class="panel" style="--n:1" data-grey=".5">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1800&q=78" alt="The hall with lighting and sound" onerror="this.closest('.panel').classList.add('noimg')">
+      <span class="pn-num">02</span><span class="pn-add">Venue +</span>
+      <div class="pn-bottom">
+        <h3><span class="pw">Enhance</span></h3>
+        <p class="pn-line">The atmosphere.</p>
+        <div class="pn-chips"><span>Sound</span><span>Lighting</span><span>Décor</span></div>
+      </div>
+    </article>
+    <article class="panel" style="--n:2" data-grey="0">
+      <img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1800&q=78" alt="A complete event" onerror="this.closest('.panel').classList.add('noimg')">
+      <span class="pn-num">03</span><span class="pn-add">Venue + Enhance +</span>
+      <div class="pn-bottom">
+        <h3><span class="pw">Experience</span></h3>
+        <p class="pn-line">The complete occasion.</p>
+        <div class="pn-chips"><span>Planning</span><span>VIP care</span><span>Full delivery</span></div>
+      </div>
+    </article>
+  </div>
+  <p class="eq reveal">Venue <em>+</em> Enhance <em>+</em> Experience</p>
+</section>
+
+<!-- 06 CHOOSE YOUR EXPERIENCE: scroll story, one hall growing through four tiers (no pricing until approved) -->
+<section class="block jsec" id="packages">
+  <div class="sh reveal"><h2>Choose your experience</h2><p>Four ways to begin. Each step goes further.</p></div>
+  <div class="journey" id="journey">
+    <div class="jstage" id="jstage" data-k="0">
+      <div class="jframe">
+        <img class="jimg j0 on" loading="lazy" src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1800&q=78" alt="The empty hall">
+        <img class="jimg j1" loading="lazy" src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1800&q=78" alt="A supported gathering">
+        <img class="jimg j2" loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1800&q=78" alt="A premium celebration">
+        <img class="jimg j3" loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=78" alt="A fully designed wedding">
+      </div>
+
+      <div class="jstep on">
+        <p class="jadd">Venue hire</p>
+        <h3 class="jword jw0">Essential</h3>
+        <p class="jline">The hall, ready for you.</p>
+        <div class="jchips"><span>Hall and power</span><span>Parking and toilets</span><span>Security</span><a href="#book" class="btn solid">Enquire</a></div>
+      </div>
+      <div class="jstep">
+        <p class="jadd">Essential +</p>
+        <h3 class="jword jw1">Classic</h3>
+        <p class="jline">A supported event.</p>
+        <div class="jchips"><span>Sound and lighting</span><span>Ushers</span><span>Changing room</span><a href="#book" class="btn solid">Explore Classic</a></div>
+      </div>
+      <div class="jstep">
+        <p class="jadd">Classic +</p>
+        <h3 class="jword jw2">Signature</h3>
+        <p class="jline">The premium experience.</p>
+        <div class="jchips"><span>Enhanced d&eacute;cor and AV</span><span>Coordinator</span><span>VIP support</span><a href="#book" class="btn solid">Explore Signature</a></div>
+      </div>
+      <div class="jstep">
+        <p class="jadd">Signature +</p>
+        <h3 class="jword jw3">Bespoke</h3>
+        <p class="jline">Full service, designed for you.</p>
+        <div class="jchips"><span>Planning and d&eacute;cor</span><span>Catering</span><span>Production</span><a href="#book" class="btn solid">Design My Event</a></div>
+      </div>
+    </div>
+  </div>
+  <p class="pk-note reveal" style="padding-bottom:60px">Tailored pricing is shared in your proposal.</p>
+</section>
+
+<!-- 07 TRANSFORMATIONS / GALLERY: Pinterest masonry + More (replace photos with real hall photos) -->
+<section class="block ivory gal" id="gallery">
+  <div class="sh reveal"><h2>One space, many transformations</h2><p>The same hall, styled for every occasion.</p></div>
+
+  <div class="mas">
+
+    <!-- Wedding -->
+    <div class="mcol">
+      <div class="gt mt1 reveal"><span class="gw">Wedding</span><small>Ceremony to reception</small></div>
+      <div class="gi r1 sh-arch reveal d1"><img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=75" alt="Wedding ceremony setup"><em>Ceremony</em></div>
+      <div class="gi r5 reveal d2"><img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=75" alt="Wedding reception tables"><em>Reception</em></div>
+      <div class="gi r4 sh-leaf reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1000&q=75" alt="The aisle"><em>The aisle</em></div>
+    </div>
+
+    <!-- Gala -->
+    <div class="mcol">
+      <div class="gi r3 reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=75" alt="Gala dinner setup"><em>Dinner</em></div>
+      <div class="gt mt2 reveal d1"><span class="gw">Gala</span><small>Dinners and milestones</small></div>
+      <div class="gi r2 sh-leaf2 reveal d1"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=75" alt="Gala toast"><em>The toast</em></div>
+      <div class="gi r1 reveal d2"><img loading="lazy" src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1000&q=75" alt="Gala dance floor"><em>Dance floor</em></div>
+    </div>
+
+    <!-- Concert -->
+    <div class="mcol">
+      <div class="gt mt3 reveal"><span class="gw">Concert</span><small>Stage, sound, light</small></div>
+      <div class="gi r4 reveal d1"><img loading="lazy" src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=75" alt="Concert stage setup"><em>Main stage</em></div>
+      <div class="gi r5 sh-leaf reveal d2"><img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=75" alt="Concert crowd"><em>The crowd</em></div>
+      <div class="gi r2 reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=800&q=75" alt="Concert lighting"><em>Lighting</em></div>
+    </div>
+
+    <!-- Reception -->
+    <div class="mcol">
+      <div class="gi r2 reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=75" alt="Reception tables"><em>Tables</em></div>
+      <div class="gt mt4 reveal d1"><span class="gw">Reception</span><small>Long tables, warm light</small></div>
+      <div class="gi r1 sh-arch reveal d1"><img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=75" alt="Reception celebration"><em>Celebration</em></div>
+      <div class="gi r3 reveal d2"><img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=75" alt="Reception details"><em>Details</em></div>
+    </div>
+
+  </div>
+
+  <!-- More setups (unchanged) -->
+  <div class="gmore" id="gmore">
+    <div class="gin">
+      <div class="grow g5">
+        <div class="gi"><img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=75" alt="Corporate setup"><em>Corporate</em></div>
+        <div class="gi"><img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=75" alt="Community setup"><em>Community</em></div>
+        <div class="gi"><img loading="lazy" src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=75" alt="Church setup"><em>Faith</em></div>
+        <div class="gi"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=75" alt="Memorial setup"><em>Memorial</em></div>
+      </div>
+    </div>
+  </div>
+  <div class="gmore-wrap">
+    <button class="btn gbtn" id="gbtn" aria-expanded="false" aria-controls="gmore"><span>More setups</span><i aria-hidden="true">+</i></button>
+  </div>
+</section>
+
+<!-- 08 THE D'GRANDEUR EXPERIENCE -->
+<section class="block" id="moments">
+  <div class="sh reveal"><h2>The D'Grandeur experience</h2><p>Six moments, from the first hello to the last goodbye.</p></div>
+  <div class="xp-wrap">
+
+    <!-- Desktop: pinned image, one slide per moment -->
+    <div class="xp-media reveal">
+      <div class="xp-frame">
+        <div class="xs on">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=78" alt="Guests arriving">
+          <div class="xb xb1"><b>Welcome</b><small>Arrival</small></div>
+        </div>
+        <div class="xs">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=78" alt="Hospitality">
+          <div class="xb xb2"><i><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></i><span><b>Warm service</b><small>Hospitality</small></span></div>
+        </div>
+        <div class="xs">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=78" alt="Guest care">
+          <div class="xb xb3"><svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1z"/></svg><b>Care</b><small>Comfort</small></div>
+        </div>
+        <div class="xs">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1600&q=78" alt="Technical reliability">
+          <div class="xb xb4"><span><b>AV ready</b><small>Sound, light, power</small></span></div>
+        </div>
+        <div class="xs">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1600&q=78" alt="VIP support">
+          <div class="xb xb5"><b>VIP</b><span><b>Priority care</b><small>Key guests</small></span></div>
+        </div>
+        <div class="xs">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=78" alt="Seamless delivery">
+          <div class="xb xb6"><b>One team</b><small>Start to finish</small></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Options (each has its own mobile image above it) -->
+    <ul class="xp-list reveal d1">
+      <li class="on" tabindex="0">
+        <div class="xm"><img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=75" alt="Guests arriving"><div class="xb xb1"><b>Welcome</b><small>Arrival</small></div></div>
+        <div><b class="xt xt0">Arrival</b><span class="xd">A warm welcome at the door</span></div><span class="xa"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </li>
+      <li tabindex="0">
+        <div class="xm"><img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1000&q=75" alt="Hospitality"><div class="xb xb2"><i><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></i><span><b>Warm service</b><small>Hospitality</small></span></div></div>
+        <div><b class="xt xt1">Hospitality</b><span class="xd">Thoughtful service throughout</span></div><span class="xa"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </li>
+      <li tabindex="0">
+        <div class="xm"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=75" alt="Guest care"><div class="xb xb3"><svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21l8.8-8.3a5 5 0 0 0 0-7.1z"/></svg><b>Care</b><small>Comfort</small></div></div>
+        <div><b class="xt xt2">Guest care</b><span class="xd">Comfort and attention</span></div><span class="xa"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </li>
+      <li tabindex="0">
+        <div class="xm"><img loading="lazy" src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=75" alt="Technical reliability"><div class="xb xb4"><span><b>AV ready</b><small>Sound, light, power</small></span></div></div>
+      <div><b class="xt xt3">Reliability</b><span class="xd">Sound, lighting and AV that work</span></div><span class="xa"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </li>
+      <li tabindex="0">
+        <div class="xm"><img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=75" alt="VIP support"><div class="xb xb5"><b>VIP</b><span><b>Priority care</b><small>Key guests</small></span></div></div>
+        <div><b class="xt xt4">VIP support</b><span class="xd">Dedicated care for key guests</span></div><span class="xa"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </li>
+      <li tabindex="0">
+        <div class="xm"><img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=75" alt="Seamless delivery"><div class="xb xb6"><b>One team</b><small>Start to finish</small></div></div>
+        <div><b class="xt xt5">Seamless</b><span class="xd">One team, start to finish</span></div><span class="xa"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- 09 TESTIMONIALS: auto-scrolling marquee
+     Placeholder quotes and photos: replace with approved client quotes and permitted photos before launch.
+     To hide until then, add the "hidden" attribute to the opening <section> tag. -->
+<section class="block ivory tq-sec" id="testimonials">
+  <div class="sh reveal"><span class="tq-eyebrow">Kind words</span><h2>What our clients say</h2><p>Moments that became lasting memories.</p></div>
+
+  <div class="tqm" id="tqm">
+
+    <!-- Row 1: moves left -->
+    <div class="tqr reveal">
+      <div class="tqt">
+        <article class="qc qv1">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A short, real client quote goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Wedding</em></div>
+        </article>
+        <article class="qc qv2">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>Another approved quote about the day goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Corporate</em></div>
+        </article>
+        <article class="qc qv3">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A third quote about the team and service goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Celebration</em></div>
+        </article>
+        <article class="qc qv4">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A fourth quote about the hall and the setup goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Gala</em></div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Row 2: moves right -->
+    <div class="tqr rev reveal d1">
+      <div class="tqt">
+        <article class="qc qv3">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A quote about the lighting and sound goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Concert</em></div>
+        </article>
+        <article class="qc qv4">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A quote about the welcome and hospitality goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Church</em></div>
+        </article>
+        <article class="qc qv1">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A quote about how smoothly everything ran goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Reception</em></div>
+        </article>
+        <article class="qc qv2">
+          <div class="qk" aria-hidden="true">&ldquo;</div>
+          <blockquote>A quote about the planning and support goes here.</blockquote>
+          <div class="qw"><span class="qp"><img loading="lazy" src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=200&h=200&q=75" alt=""></span><div><b>Client name</b><small>Date of event</small></div><em>Community</em></div>
+        </article>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10 FINAL CONVERSION: three doors -->
+<section class="end" id="book">
+  <div class="end-top">
+    <span class="end-eyebrow reveal">Choose how you'd like to begin</span>
+    <h2 class="end-h reveal d1">
+      <span class="a">Your</span>
+      <span class="b">extraordinary</span>
+      <span class="c">event starts here</span>
+    </h2>
+  </div>
+
+  <div class="end-doors">
+    <div class="reveal">
+      <a href="mailto:concierge@dgrandeur.com?subject=Book%20a%20viewing" class="ec ec1">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=75" alt="">
+        <div class="ec-row"><div><b class="ec-t">Book a Viewing</b><span class="ec-s">Walk the hall and see it for yourself.</span></div><span class="ec-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+
+    <div class="reveal d1">
+      <a href="mailto:concierge@dgrandeur.com?subject=Request%20a%20proposal" class="ec ec2">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=75" alt="">
+        <b class="ec-t">Request a Proposal</b>
+        <span class="ec-s">Tailored to your date and guest list.</span>
+        <div class="ec-row"><span class="ec-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+
+    <div class="reveal d2">
+      <a href="https://wa.me/YOURNUMBER" target="_blank" rel="noopener" class="ec ec3">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=75" alt="">
+        <div class="ec-row"><div><b class="ec-t">WhatsApp Us</b><span class="ec-s">A quick question? Message us now.</span></div><span class="ec-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="end-contact">
+  <a href="mailto:concierge@dgrandeur.com">
+    <svg class="ic-mail" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    concierge@dgrandeur.com
+  </a>
+  <a href="https://wa.me/YOURNUMBER" target="_blank" rel="noopener">
+    <svg class="ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+</div>
+</section>
+
+<footer>
+  <span>© 2026 D'Grandeur Event Centre</span>
+  <span>concierge@dgrandeur.com</span>
+</footer>
+
+<a href="#book" class="sticky">Book a Viewing</a>
+<script>
+  // Nav background on scroll
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60 || menu.classList.contains('open')), {passive:true});
+
+  // Sliding underline for top links
+  const links = document.getElementById('links');
+  const ink = document.getElementById('ink');
+  const anchors = [...links.querySelectorAll('a')];
+  let activeLink = null;
+  function moveInk(a){
+    if(!a){ ink.style.opacity = 0; return; }
+    ink.style.width = (a.offsetWidth - 32) + 'px';
+    ink.style.transform = 'translateX(' + (a.offsetLeft + 16) + 'px)';
+    ink.style.opacity = 1;
+  }
+  anchors.forEach(a => a.addEventListener('mouseenter', () => moveInk(a)));
+  anchors.forEach(a => a.addEventListener('focus', () => moveInk(a)));
+  links.addEventListener('mouseleave', () => moveInk(activeLink));
+  addEventListener('resize', () => moveInk(activeLink));
+
+  // Highlight the link for the section in view
+  const map = {};
+  anchors.forEach(a => map[a.getAttribute('href').slice(1)] = a);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        activeLink = map[e.target.id] || null;
+        anchors.forEach(a => a.classList.toggle('active', a === activeLink));
+        moveInk(activeLink);
+      }
+    });
+  }, {rootMargin:'-45% 0px -45% 0px'});
+  Object.keys(map).forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  addEventListener('scroll', () => { if (scrollY < 200) { activeLink = null; anchors.forEach(a => a.classList.remove('active')); moveInk(null); } }, {passive:true});
+
+  // Dropdown menu
+  const toggle = document.getElementById('toggle');
+  const menu = document.getElementById('menu');
+  function setMenu(open){
+    menu.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) nav.classList.add('scrolled'); else if (scrollY <= 60) nav.classList.remove('scrolled');
+  }
+  toggle.addEventListener('click', (e) => { e.stopPropagation(); setMenu(!menu.classList.contains('open')); });
+  menu.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', (e) => { if (!menu.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+  // Hero video: autoplay when allowed, poster only if motion is reduced
+  const hv=document.getElementById('heroVideo');
+  if(hv){
+    hv.muted=true;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches){ hv.removeAttribute('autoplay'); hv.pause(); }
+    else{
+      const go=()=>{ const pr=hv.play(); if(pr&&pr.catch) pr.catch(()=>{}); };
+      go();
+      addEventListener('load',go);
+      document.addEventListener('touchstart',go,{once:true,passive:true});
+      document.addEventListener('click',go,{once:true});
+    }
+  }
+
+  // More than a venue: stacking panels
+  (function(){
+    const panels=[...document.querySelectorAll('#stack .panel')];
+    if(!panels.length) return;
+    if('IntersectionObserver' in window){
+      const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{threshold:.3});
+      panels.forEach(pn=>io.observe(pn));
+    } else panels.forEach(pn=>pn.classList.add('in'));
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    let ticking=false;
+    function update(){
+      const vh=innerHeight;
+      panels.forEach((pn,k)=>{
+        const next=panels[k+1];
+        if(!next){ return; }
+        const top=next.getBoundingClientRect().top;
+        const stick=parseFloat(getComputedStyle(next).top)||0;
+        const p=Math.min(1,Math.max(0,(vh-top)/(vh-stick)));
+        pn.style.transform='scale('+(1-.05*p)+')';
+      });
+      ticking=false;
+    }
+    addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update); } },{passive:true});
+    addEventListener('resize',update);
+    update();
+  })();
+
+    // Choose your experience: scroll story
+  (function(){
+    const j=document.getElementById('journey'), st=document.getElementById('jstage');
+    if(!j||!st) return;
+    const imgs=[...st.querySelectorAll('.jimg')], steps=[...st.querySelectorAll('.jstep')], rail=[...st.querySelectorAll('.jr')];
+    let cur=-1, ticking=false;
+    function set(k){
+      cur=k;
+      st.setAttribute('data-k',k);
+      imgs.forEach((el,i)=>el.classList.toggle('on',i===k));
+      steps.forEach((el,i)=>el.classList.toggle('on',i===k));
+      rail.forEach((el,i)=>el.classList.toggle('on',i<=k));
+    }
+    function update(){
+      const total=j.offsetHeight-innerHeight;
+      const p=Math.min(1,Math.max(0,-j.getBoundingClientRect().top/total));
+      st.style.setProperty('--p',p);
+      const k=Math.min(3,Math.floor(p*4));
+      if(k!==cur) set(k);
+      ticking=false;
+    }
+    addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update); } },{passive:true});
+    addEventListener('resize',update);
+    update();
+  })();
+
+  // Transformations: More setups
+  (function(){
+    const btn=document.getElementById('gbtn'), box=document.getElementById('gmore');
+    if(!btn||!box) return;
+    const label=btn.querySelector('span');
+    btn.addEventListener('click',()=>{
+      const open=!box.classList.contains('open');
+      box.classList.toggle('open',open);
+      btn.setAttribute('aria-expanded',open);
+      label.textContent=open?'Show less':'More setups';
+    });
+  })();
+  
+    // The D'Grandeur experience: swap image + badge with the active moment
+  (function(){
+    const rows=[...document.querySelectorAll('.xp-list li')], slides=[...document.querySelectorAll('.xp-frame .xs')];
+    if(!rows.length) return;
+    function set(i){
+      rows.forEach((r,k)=>r.classList.toggle('on',k===i));
+      slides.forEach((s,k)=>s.classList.toggle('on',k===i));
+    }
+    rows.forEach((r,i)=>['mouseenter','focus','click'].forEach(ev=>r.addEventListener(ev,()=>set(i))));
+  })();
+  
+    // Testimonials: endless auto-scrolling rows
+  (function(){
+    const wrap=document.getElementById('tqm');
+    if(!wrap) return;
+    wrap.querySelectorAll('.tqt').forEach(track=>{
+      // duplicate the cards once so the loop is seamless
+      [...track.children].forEach(c=>{
+        const d=c.cloneNode(true);
+        d.setAttribute('aria-hidden','true');
+        track.appendChild(d);
+      });
+      // constant speed (px per second), whatever the number of cards
+      const half=track.scrollWidth/2;
+      track.style.setProperty('--spd',(half/45)+'s');
+    });
+    // touch: pause while a finger is down
+    wrap.addEventListener('touchstart',()=>wrap.classList.add('hold'),{passive:true});
+    wrap.addEventListener('touchend',()=>setTimeout(()=>wrap.classList.remove('hold'),1200),{passive:true});
+    // recalculate speed once images and fonts have loaded
+    addEventListener('load',()=>wrap.querySelectorAll('.tqt').forEach(t=>t.style.setProperty('--spd',(t.scrollWidth/2/45)+'s')));
+  })();
+
+  // Scroll reveals
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15, rootMargin:'0px 0px -6% 0px'});
+    els.forEach(el => io.observe(el));
+  } else {
+    els.forEach(el => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
